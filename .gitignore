@@ -1,0 +1,13 @@
+/WebApplication/.vs
+/WebApplication/src/WebApplication/obj
+/WebApplication/src/WebApplication/bin
+/WebApplication/src/DataAccessLayer/bin
+/WebApplication/src/DataAccessLayer/obj
+/WebApplication/src/AppCore/bin
+/WebApplication/src/AppCore/obj
+/WebApplication/src/WebApplication/project.lock.json
+/WebApplication/src/WebApplication/WebApplication.xproj.user
+/WebApplication/src/DataAccessLayer/DataAccessLayer.xproj.user
+/WebApplication/src/DataAccessLayer/project.lock.json
+/WebApplication/src/AppCore/project.lock.json
+/WebApplication/src/AppCore/AppCore.xproj.user
