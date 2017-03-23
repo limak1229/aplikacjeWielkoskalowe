@@ -1,7 +1,6 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
-namespace Tests
+namespace AppCore.Tests
 {
     public class Tests
     {

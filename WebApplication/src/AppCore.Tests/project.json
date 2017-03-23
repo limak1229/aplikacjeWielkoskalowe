@@ -4,9 +4,11 @@
     "debugType": "portable"
   },
   "dependencies": {
-    "System.Runtime.Serialization.Primitives": "4.1.1",
-    "xunit": "2.1.0",
-    "dotnet-test-xunit": "1.0.0-rc2-192208-24"
+    "AppCore": "1.0.0-*",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "Moq": "4.7.1",
+    "System.Runtime.Serialization.Primitives": "4.3.0",
+    "xunit": "2.2.0"
   },
   "testRunner": "xunit",
   "frameworks": {
@@ -14,8 +16,9 @@
       "dependencies": {
         "Microsoft.NETCore.App": {
           "type": "platform",
-          "version": "1.0.1"
+          "version": "1.1.1"
         }
+
       },
       "imports": [
         "dotnet5.4",
