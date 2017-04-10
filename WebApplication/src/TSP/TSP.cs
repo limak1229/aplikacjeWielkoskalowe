@@ -21,7 +21,6 @@ namespace TSP
 
             while (true)
             {
-                Console.WriteLine(startingTour);
                 var newTour = startingTour.GenerateMutations()
                                           .MinBy(tour => tour.Cost());
                 if (newTour.Cost() < startingTour.Cost()) startingTour = newTour;

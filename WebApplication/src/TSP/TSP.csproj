@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TSPEngine\TSPEngine.csproj" />
+    <ProjectReference Include="..\TSPEngine\TSPEngine.csproj" />
   </ItemGroup>
 
 </Project>
