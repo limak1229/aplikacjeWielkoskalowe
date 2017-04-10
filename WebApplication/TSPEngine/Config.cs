@@ -22,15 +22,15 @@ namespace TSPEngine
                 prev.Next = first;
             }
         }
-        private static T MinBy<T, TComparable>(
-    this IEnumerable<T> xs,
-    Func<T, TComparable> func)
-    where TComparable : IComparable<TComparable>
-        {
-            return xs.DefaultIfEmpty().Aggregate(
-                (maxSoFar, elem) =>
-                func(elem).CompareTo(func(maxSoFar)) > 0 ? maxSoFar : elem);
-        }
+        public static T MinBy<T, TComparable>(
+        this IEnumerable<T> xs,
+        Func<T, TComparable> func)
+        where TComparable : IComparable<TComparable>
+            {
+                return xs.DefaultIfEmpty().Aggregate(
+                    (maxSoFar, elem) =>
+                    func(elem).CompareTo(func(maxSoFar)) > 0 ? maxSoFar : elem);
+            }
 
 
         public static IEnumerable<Stop> NearestNeighbors(this IEnumerable<Stop> stops)

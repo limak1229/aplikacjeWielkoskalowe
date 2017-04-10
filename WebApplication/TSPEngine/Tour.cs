@@ -75,7 +75,15 @@ namespace TSPEngine
                 (sum, stop) =>
                 sum + Stop.Distance(stop, stop.Next));
         }
-
+        public List<City> Path()
+        {
+            List<City> cities = new List<City>();
+            foreach (var item in Anchor.CanGetTo())
+            {
+                cities.Add(item.City);
+            }
+            return cities;
+        }
 
         private IEnumerable<Stop> Cycle()
         {
