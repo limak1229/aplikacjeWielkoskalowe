@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TSP
+namespace TSPEngine
 {
     public class Class1
     {
