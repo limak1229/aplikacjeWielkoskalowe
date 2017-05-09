@@ -12,7 +12,7 @@ namespace DataAccessLayer
     {
         public static void RegisterDataAccessLayerServices(this IServiceCollection services)
         {
-            services.AddScoped<ITestRepository, TestRepository>();
+            services.AddScoped<ICalculatedRoutesRepository, CalculatedRoutesRepository>();
         }
     }
 }

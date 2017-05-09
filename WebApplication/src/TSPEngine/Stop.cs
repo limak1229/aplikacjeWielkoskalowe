@@ -26,8 +26,8 @@ namespace TSPEngine
         public static double Distance(Stop first, Stop other)
         {
             return Math.Sqrt(
-                Math.Pow(first.City.x - other.City.x, 2) +
-                Math.Pow(first.City.y - other.City.y, 2));
+                Math.Pow(first.City.Latitude - other.City.Latitude, 2) +
+                Math.Pow(first.City.Longitude - other.City.Longitude, 2));
         }
 
         public IEnumerable<Stop> CanGetTo()
@@ -56,7 +56,7 @@ namespace TSPEngine
 
         public override string ToString()
         {
-            return City.cityName.ToString();
+            return City.CityName.ToString();
         }
     }
 }

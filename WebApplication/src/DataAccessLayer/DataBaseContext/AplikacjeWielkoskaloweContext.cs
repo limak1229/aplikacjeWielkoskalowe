@@ -6,7 +6,7 @@ namespace DataAccessLayer.DataBaseContext
 {
     public partial class AplikacjeWielkoskaloweContext : DbContext
     {
-        public virtual DbSet<TestTable> TestTable { get; set; }
+        public virtual DbSet<CalculatedRoutes> CalculatedRoutes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,9 +16,19 @@ namespace DataAccessLayer.DataBaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TestTable>(entity =>
+            modelBuilder.Entity<CalculatedRoutes>(entity =>
             {
-                entity.Property(e => e.Value).IsRequired();
+                entity.Property(e => e.CreatedDate)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("getdate()");
+
+                entity.Property(e => e.Data)
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                entity.Property(e => e.DataVersion)
+                    .IsRequired()
+                    .HasColumnType("nchar(10)");
             });
         }
     }

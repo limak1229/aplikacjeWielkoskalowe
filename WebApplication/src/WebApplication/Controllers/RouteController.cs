@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using AppCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,24 +15,24 @@ namespace WebApplication.Controllers
             _routeManager = routeManager;
         }
 
-        [HttpGet]
+        [HttpGet("{routeGuid}")]
         public IActionResult GetRoute(Guid routeGuid)
         {
-            return Ok(_routeManager.GetRoute(routeGuid));
+            var result = _routeManager.GetRouteData(routeGuid);
+            Response.ContentType = "application/json";
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CalculateRoute([FromQuery] string version)
+        public IActionResult CalculateRoute([FromQuery] string version)
         {
             if (string.IsNullOrEmpty(version))
-            {
                 throw new ArgumentException("Missing request version.");
-            }
 
-            StreamReader reader = new StreamReader(this.Request.Body);
-            string jsonString = reader.ReadToEnd();
-            
-            return Ok(await _routeManager.CalculateRoute(version, jsonString));
+            var reader = new StreamReader(Request.Body);
+            var jsonString = reader.ReadToEnd();
+
+            return Ok(_routeManager.CalculateRoute(version, jsonString));
         }
     }
 }
