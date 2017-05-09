@@ -15,7 +15,7 @@ namespace AppCore
         {
             services.RegisterDataAccessLayerServices();
 
-            services.AddScoped<ITestManager, TestManager>();
+            services.AddScoped<IRouteManager, RouteManager>();
         }
     }
 }
