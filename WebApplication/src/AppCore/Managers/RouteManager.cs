@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AppCore.Interfaces;
 using AppCore.Models;
-using DataAccessLayer.DataBaseContext;
-using DataAccessLayer.Interfaces;
+using Newtonsoft.Json;
 
 namespace AppCore.Managers
 {
@@ -20,8 +19,11 @@ namespace AppCore.Managers
             throw new NotImplementedException();
         }
 
-        public Guid CalculateRoute(List<City> cities)
+        public Task<Guid> CalculateRoute(string version, string jsonString)
         {
+            var data = JsonConvert.DeserializeObject<City>(jsonString);
+            //:TODO Dorobić fabryke oboiektów po wersji jsona
+
             throw new NotImplementedException();
         }
     }

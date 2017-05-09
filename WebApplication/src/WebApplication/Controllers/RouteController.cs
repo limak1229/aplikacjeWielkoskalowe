@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using AppCore.Interfaces;
-using AppCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication.Controllers
@@ -18,16 +16,24 @@ namespace WebApplication.Controllers
             _routeManager = routeManager;
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult GetRoute(Guid routeGuid)
         {
             return Ok(_routeManager.GetRoute(routeGuid));
         }
 
-        [HttpGet]
-        public IActionResult CalculateRoute(List<City> cities)
+        [HttpPost]
+        public async Task<IActionResult> CalculateRoute([FromQuery] string version)
         {
-            return Ok(_routeManager.CalculateRoute(cities));
+            if (string.IsNullOrEmpty(version))
+            {
+                throw new ArgumentException("Missing request version.");
+            }
+
+            StreamReader reader = new StreamReader(this.Request.Body);
+            string jsonString = reader.ReadToEnd();
+            
+            return Ok(await _routeManager.CalculateRoute(version, jsonString));
         }
     }
 }

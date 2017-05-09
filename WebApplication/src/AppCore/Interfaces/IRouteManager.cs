@@ -10,6 +10,6 @@ namespace AppCore.Interfaces
     public interface IRouteManager
     {
         List<City> GetRoute(Guid routeGuid);
-        Guid CalculateRoute(List<City> cities);
+        Task<Guid> CalculateRoute(string version, string jsonString);
     }
 }
