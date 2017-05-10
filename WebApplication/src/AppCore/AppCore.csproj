@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="2.0.11" />
   </ItemGroup>
 
   <ItemGroup>

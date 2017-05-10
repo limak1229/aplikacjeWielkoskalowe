@@ -8,12 +8,12 @@ namespace AppCore
 {
     public class AdvancedRouteCalculator: IRouteCalculator
     {
-        public void SetData(Guid token, string data)
+        public void SetData(Guid token, string inputData)
         {
             throw new NotImplementedException();
         }
 
-        public bool ValidateData()
+        public bool IsValidData(string inputData)
         {
             throw new NotImplementedException();
         }

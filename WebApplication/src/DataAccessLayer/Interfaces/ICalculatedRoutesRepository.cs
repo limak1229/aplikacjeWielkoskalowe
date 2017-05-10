@@ -5,7 +5,7 @@ namespace DataAccessLayer.Interfaces
 {
     public interface ICalculatedRoutesRepository
     {
-        CalculatedRoutes GetCalculatedRoutes(Guid token);
+        CalculatedRoutes GetCalculatedRoute(Guid token);
         bool AddNewCalculatedRoute(string version, Guid token, string data);
     }
 }

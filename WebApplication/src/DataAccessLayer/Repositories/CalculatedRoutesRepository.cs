@@ -9,7 +9,7 @@ namespace DataAccessLayer.Repositories
 {
     public class CalculatedRoutesRepository : ICalculatedRoutesRepository
     {
-        public CalculatedRoutes GetCalculatedRoutes(Guid token)
+        public CalculatedRoutes GetCalculatedRoute(Guid token)
         {
             using (var db = new AplikacjeWielkoskaloweContext())
             {

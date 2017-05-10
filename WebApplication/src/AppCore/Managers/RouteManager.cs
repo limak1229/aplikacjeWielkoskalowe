@@ -18,22 +18,32 @@ namespace AppCore.Managers
 
         public string GetRouteData(Guid token)
         {
-            var calculatedRoute = _calculatedRoutesRepository.GetCalculatedRoutes(token);
-            if (calculatedRoute == null || string.IsNullOrEmpty(calculatedRoute.DataVersion) || string.IsNullOrEmpty(calculatedRoute.Data))
-                throw new ArgumentException("Incorrect calculated route data.");
+            var calculatedRoute = _calculatedRoutesRepository.GetCalculatedRoute(token);
+
+            if (calculatedRoute == null)
+                throw new ArgumentException("Missing calculated route data fetched from database.");
+            if (string.IsNullOrEmpty(calculatedRoute.DataVersion) || string.IsNullOrEmpty(calculatedRoute.Data))
+                throw new ArgumentException("Missing data version or calculated route data.");
 
             var calculator = _calculatorFactory.GetRouteCalculator("1.0");
+            if (!calculator.IsValidData(calculatedRoute.Data))
+                throw new Exception("Invalid json data fetched from database");
+
             calculator.SetData(token, calculatedRoute.Data);
+
             return calculator.GetResponseData();
         }
 
         public Guid CalculateRoute(string version, string jsonString)
         {
             if (string.IsNullOrEmpty(version) || string.IsNullOrEmpty(jsonString))
-                throw new ArgumentException("Incorrect input route data.");
+                throw new ArgumentException("Missing data version or input route json data.");
+
+            var calculator = _calculatorFactory.GetRouteCalculator(version);
+            if (!calculator.IsValidData(jsonString))
+                throw new Exception("Invalid input json data");
 
             var token = Guid.NewGuid();
-            var calculator = _calculatorFactory.GetRouteCalculator(version);
             calculator.SetData(token, jsonString);
             calculator.Calculate();
 
