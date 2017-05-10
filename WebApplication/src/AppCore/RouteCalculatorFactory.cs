@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using AppCore.Calculators;
 using AppCore.Interfaces;
 
 namespace AppCore
 {
     public class RouteCalculatorFactory
     {
-        private readonly BaseRouteCalculator _baseRouteCalculator;
         private readonly AdvancedRouteCalculator _advancedRouteCalculator;
+        private readonly BaseRouteCalculator _baseRouteCalculator;
 
-        public RouteCalculatorFactory(BaseRouteCalculator baseRouteCalculator, AdvancedRouteCalculator advancedRouteCalculator)
+        public RouteCalculatorFactory(BaseRouteCalculator baseRouteCalculator,
+            AdvancedRouteCalculator advancedRouteCalculator)
         {
             _baseRouteCalculator = baseRouteCalculator;
             _advancedRouteCalculator = advancedRouteCalculator;
         }
 
-        public IRouteCalculator GetRouteCalculator(string version)
+        public RouteCalculator GetRouteCalculator(string version)
         {
             switch (version)
             {

@@ -26,7 +26,7 @@ namespace AppCore.Managers
                 throw new ArgumentException("Missing data version or calculated route data.");
 
             var calculator = _calculatorFactory.GetRouteCalculator("1.0");
-            if (!calculator.IsValidData(calculatedRoute.Data))
+            if (!calculator.IsValidOutputData(calculatedRoute.Data))
                 throw new Exception("Invalid json data fetched from database");
 
             calculator.SetData(token, calculatedRoute.Data);
@@ -40,7 +40,7 @@ namespace AppCore.Managers
                 throw new ArgumentException("Missing data version or input route json data.");
 
             var calculator = _calculatorFactory.GetRouteCalculator(version);
-            if (!calculator.IsValidData(jsonString))
+            if (!calculator.IsValidInputData(jsonString))
                 throw new Exception("Invalid input json data");
 
             var token = Guid.NewGuid();
