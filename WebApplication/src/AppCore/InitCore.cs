@@ -17,7 +17,7 @@ namespace AppCore
             services.AddScoped<BaseRouteCalculator>();
             services.AddScoped<AdvancedRouteCalculator>();
             services.AddScoped<RouteCalculatorFactory>();
-            services.AddScoped<TSP.TSP>();
+            services.AddScoped<TSP.Tsp>();
 
             ConfigureMapper(services);
         }

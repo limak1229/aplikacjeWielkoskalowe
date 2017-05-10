@@ -13,12 +13,12 @@ namespace AppCore
 {
     public class BaseRouteCalculator : IRouteCalculator
     {
-        private readonly TSP.TSP _algorythm;
+        private readonly TSP.Tsp _algorythm;
         private readonly IMapper _mapper;
 
         private bool _isValid;
 
-        public BaseRouteCalculator(TSP.TSP algorythm, IMapper mapper)
+        public BaseRouteCalculator(TSP.Tsp algorythm, IMapper mapper)
         {
             _algorythm = algorythm;
             _mapper = mapper;

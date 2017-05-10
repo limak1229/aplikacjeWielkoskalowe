@@ -7,18 +7,18 @@ using TSPEngine;
 
 namespace TSP
 {
-    public class TSP
+    public class Tsp
     {
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
-        public TSP(ICalculatedRoutesRepository calculatedRoutesRepository)
+        public Tsp(ICalculatedRoutesRepository calculatedRoutesRepository)
         {
             _calculatedRoutesRepository = calculatedRoutesRepository;
         }
 
         public void CalculateRoute(Guid token, List<City> cities)
         {
-            var stops = Enumerable.Range(0, cities.Count - 1)
+            var stops = Enumerable.Range(0, cities.Count)
                 .Select(i => new Stop(cities[i]))
                 .NearestNeighbors()
                 .ToList();
