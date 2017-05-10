@@ -18,21 +18,35 @@ namespace WebApplication.Controllers
         [HttpGet("{routeGuid}")]
         public IActionResult GetRoute(Guid routeGuid)
         {
-            var result = _routeManager.GetRouteData(routeGuid);
-            Response.ContentType = "application/json";
-            return Ok(result);
+            try
+            {
+                var result = _routeManager.GetRouteData(routeGuid);
+                Response.ContentType = "application/json";
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult CalculateRoute([FromQuery] string version)
         {
-            if (string.IsNullOrEmpty(version))
-                throw new ArgumentException("Missing request version.");
+            try
+            {
+                if (string.IsNullOrEmpty(version))
+                    throw new ArgumentException("Missing request version.");
 
-            var reader = new StreamReader(Request.Body);
-            var jsonString = reader.ReadToEnd();
+                var reader = new StreamReader(Request.Body);
+                var jsonString = reader.ReadToEnd();
 
-            return Ok(_routeManager.CalculateRoute(version, jsonString));
+                return Ok(_routeManager.CalculateRoute(version, jsonString));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

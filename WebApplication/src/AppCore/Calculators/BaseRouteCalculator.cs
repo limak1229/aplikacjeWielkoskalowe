@@ -76,15 +76,23 @@ namespace AppCore.Calculators
 
             const string schemaJson = @"{
                 'type': 'array',
-                'cityName': {'type':'string'},
-                'latitude': {'type':'double'},
-                'longitude': {'type':'double'}
+                'uniqueItems': true,
+                'minItems': 3,
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'CityName': {'type':'string'},
+                        'Latitude': {'type':'number', 'multipleOf': 0.00001, 'minimum': -85, 'maximum': 85},
+                        'Longitude': {'type':'number', 'multipleOf': 0.00001, 'minimum': -180, 'maximum': 180}
+                     },
+                    'required': ['CityName', 'Latitude', 'Longitude']
+                }
             }";
 
             var schema = JSchema.Parse(schemaJson);
-            var data = JObject.Parse(jsonData);
-
-            if (!data.IsValid(schema))
+            var data = JArray.Parse(jsonData);
+            var isValid = data.IsValid(schema);
+            if (!isValid)
                 return false;
 
             Cities = JsonConvert.DeserializeObject<List<City>>(jsonData);
