@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Algorythms.Interfaces;
-using AutoMapper;
 using DataAccessLayer.Interfaces;
 using TSPEngine;
 
-namespace AppCore.Calculators
+namespace AppCore.RouteCalculators
 {
     public class AdvancedRouteCalculator : BaseRouteCalculator
     {
-        public AdvancedRouteCalculator(IAlgorythm<List<City>> algorythm, IMapper mapper, ICalculatedRoutesRepository calculatedRoutesRepository) : base(algorythm, mapper, calculatedRoutesRepository)
+        public AdvancedRouteCalculator(IAlgorythm<List<City>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository) : base(algorythm, calculatedRoutesRepository)
         {
 
         }

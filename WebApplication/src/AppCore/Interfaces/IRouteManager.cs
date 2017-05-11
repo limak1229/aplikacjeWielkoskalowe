@@ -1,5 +1,4 @@
 ﻿using System;
-using AppCore.Models;
 
 namespace AppCore.Interfaces
 {

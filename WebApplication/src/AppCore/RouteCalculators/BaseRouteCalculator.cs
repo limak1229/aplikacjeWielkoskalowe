@@ -4,21 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Algorythms.Interfaces;
 using AppCore.Interfaces;
-using AppCore.Models;
-using AutoMapper;
 using DataAccessLayer.DataBaseContext;
 using DataAccessLayer.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using TSPEngine;
 
 
-namespace AppCore.Calculators
+namespace AppCore.RouteCalculators
 {
     public class BaseRouteCalculator : RouteCalculator<string>
     {
         private readonly IAlgorythm<List<TSPEngine.City>> _algorythm;
-        private readonly IMapper _mapper;
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
         private bool _isValidInputData;
@@ -28,10 +26,9 @@ namespace AppCore.Calculators
         private CalculatedRoutes _outputData;
         private Guid _token;
 
-        public BaseRouteCalculator(IAlgorythm<List<TSPEngine.City>> algorythm, IMapper mapper, ICalculatedRoutesRepository calculatedRoutesRepository)
+        public BaseRouteCalculator(IAlgorythm<List<TSPEngine.City>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository)
         {
             _algorythm = algorythm;
-            _mapper = mapper;
             _calculatedRoutesRepository = calculatedRoutesRepository;
 
             _isValidInputData = false;
@@ -73,8 +70,7 @@ namespace AppCore.Calculators
                 Task.Run(() =>
                 {
                     var cities = JsonConvert.DeserializeObject<List<City>>(_inputData);
-                    var mappedData = _mapper.Map<List<TSPEngine.City>>(cities);
-                    _algorythm.CalculateRoute(_token, mappedData);
+                    _algorythm.CalculateRoute(_token, cities);
                 });
             else
                 throw new Exception("Invalid data when trying calculate route.");

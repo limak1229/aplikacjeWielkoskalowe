@@ -1,8 +1,8 @@
 ﻿using System;
-using AppCore.Calculators;
+using AppCore.RouteCalculators;
 using AppCore.Interfaces;
 
-namespace AppCore
+namespace AppCore.CalculatorCreators
 {
     public class JsonRouteCalculatorCreator: IJsonRouteCalculatorCreator
     {
