@@ -81,11 +81,11 @@ namespace AppCore.Calculators
                 'items': {
                     'type': 'object',
                     'properties': {
-                        'CityName': {'type':'string'},
-                        'Latitude': {'type':'number', 'multipleOf': 0.00001, 'minimum': -85, 'maximum': 85},
-                        'Longitude': {'type':'number', 'multipleOf': 0.00001, 'minimum': -180, 'maximum': 180}
+                        'cityName': {'type':'string'},
+                        'latitude': {'type':'number', 'multipleOf': 0.00001, 'minimum': -85, 'maximum': 85},
+                        'longitude': {'type':'number', 'multipleOf': 0.00001, 'minimum': -180, 'maximum': 180}
                      },
-                    'required': ['CityName', 'Latitude', 'Longitude']
+                    'required': ['cityName', 'latitude', 'longitude']
                 }
             }";
 
