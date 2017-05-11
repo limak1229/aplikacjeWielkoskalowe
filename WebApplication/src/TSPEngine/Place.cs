@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TSPEngine
 {
-    public class City
+    public class Place
     {
         public Double Latitude { get; set; }
 

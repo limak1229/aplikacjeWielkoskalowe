@@ -8,7 +8,7 @@ namespace AppCore.RouteCalculators
 {
     public class AdvancedRouteCalculator : BaseRouteCalculator
     {
-        public AdvancedRouteCalculator(IAlgorythm<List<City>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository) : base(algorythm, calculatedRoutesRepository)
+        public AdvancedRouteCalculator(IAlgorythm<List<Place>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository) : base(algorythm, calculatedRoutesRepository)
         {
 
         }

@@ -16,7 +16,7 @@ namespace AppCore.RouteCalculators
 {
     public class BaseRouteCalculator : RouteCalculator<string>
     {
-        private readonly IAlgorythm<List<City>> _algorythm;
+        private readonly IAlgorythm<List<Place>> _algorythm;
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
         private bool _isValidInputData;
@@ -26,7 +26,7 @@ namespace AppCore.RouteCalculators
         private CalculatedRoutes _outputData;
         private Guid _token;
 
-        public BaseRouteCalculator(IAlgorythm<List<City>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository)
+        public BaseRouteCalculator(IAlgorythm<List<Place>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository)
         {
             _algorythm = algorythm;
             _calculatedRoutesRepository = calculatedRoutesRepository;
@@ -69,7 +69,7 @@ namespace AppCore.RouteCalculators
             if (_isValidInputData)
                 Task.Run(() =>
                 {
-                    var cities = JsonConvert.DeserializeObject<List<City>>(_inputData);
+                    var cities = JsonConvert.DeserializeObject<List<Place>>(_inputData);
                     _algorythm.CalculateRoute(_token, cities);
                 });
             else
@@ -109,7 +109,7 @@ namespace AppCore.RouteCalculators
             if (!isValid)
                 return false;
 
-            var cities = JsonConvert.DeserializeObject<List<City>>(jsonData);
+            var cities = JsonConvert.DeserializeObject<List<Place>>(jsonData);
             if (cities == null || !cities.Any())
                 return false;
 

@@ -6,6 +6,7 @@ using AppCore.Interfaces;
 using AppCore.RouteCalculators;
 using DataAccessLayer;
 using Microsoft.Extensions.DependencyInjection;
+using TSPEngine;
 
 namespace AppCore
 {
@@ -18,7 +19,7 @@ namespace AppCore
             services.AddScoped<BaseRouteCalculator>();
             services.AddScoped<AdvancedRouteCalculator>();
             services.AddScoped<IJsonRouteCalculatorCreator, JsonRouteCalculatorCreator>();
-            services.AddScoped<IAlgorythm<List<TSPEngine.City>>, Tsp>();
+            services.AddScoped<IAlgorythm<List<Place>>, Tsp>();
         }
     }
 }

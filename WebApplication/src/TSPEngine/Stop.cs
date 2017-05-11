@@ -6,7 +6,7 @@ namespace TSPEngine
 {
     public class Stop
     {
-        public Stop(City city)
+        public Stop(Place city)
         {
             City = city;
         }
@@ -14,7 +14,7 @@ namespace TSPEngine
 
         public Stop Next { get; set; }
 
-        public City City { get; set; }
+        public Place City { get; set; }
 
 
         public Stop Clone()

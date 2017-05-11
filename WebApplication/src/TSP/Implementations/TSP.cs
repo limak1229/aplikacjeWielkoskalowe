@@ -8,7 +8,7 @@ using TSPEngine;
 
 namespace Algorythms.Implementations
 {
-    public class Tsp : IAlgorythm<List<City>>
+    public class Tsp : IAlgorythm<List<Place>>
     {
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
@@ -17,7 +17,7 @@ namespace Algorythms.Implementations
             _calculatedRoutesRepository = calculatedRoutesRepository;
         }
 
-        public void CalculateRoute(Guid token, List<City> cities)
+        public void CalculateRoute(Guid token, List<Place> cities)
         {
             var stops = Enumerable.Range(0, cities.Count)
                 .Select(i => new Stop(cities[i]))
