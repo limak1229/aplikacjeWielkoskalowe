@@ -31,7 +31,7 @@ namespace TSPEngine
         public Stop Anchor { get; set; }
 
 
-        public Tour CloneWithSwap(City firstCity, City secondCity)
+        public Tour CloneWithSwap(Place firstCity, Place secondCity)
         {
             Stop firstFrom = null, secondFrom = null;
             var stops = UnconnectedClones();
@@ -75,9 +75,9 @@ namespace TSPEngine
                 (sum, stop) =>
                 sum + Stop.Distance(stop, stop.Next));
         }
-        public List<City> Path()
+        public List<Place> Path()
         {
-            List<City> cities = new List<City>();
+            List<Place> cities = new List<Place>();
             foreach (var item in Anchor.CanGetTo())
             {
                 cities.Add(item.City);

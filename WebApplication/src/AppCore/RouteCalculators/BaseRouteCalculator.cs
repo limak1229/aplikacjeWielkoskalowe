@@ -2,52 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Algorythms.Interfaces;
 using AppCore.Interfaces;
-using AppCore.Models;
-using AutoMapper;
+using DataAccessLayer.DataBaseContext;
+using DataAccessLayer.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using TSP;
+using TSPEngine;
 
-namespace AppCore.Calculators
+
+namespace AppCore.RouteCalculators
 {
-    public class BaseRouteCalculator : RouteCalculator
+    public class BaseRouteCalculator : RouteCalculator<string>
     {
-        private readonly Tsp _algorythm;
-        private readonly IMapper _mapper;
+        private readonly IAlgorythm<List<Place>> _algorythm;
+        private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
         private bool _isValidInputData;
         private bool _isValidOutputData;
 
-        public BaseRouteCalculator(Tsp algorythm, IMapper mapper)
+        private string _inputData;
+        private CalculatedRoutes _outputData;
+        private Guid _token;
+
+        public BaseRouteCalculator(IAlgorythm<List<Place>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository)
         {
             _algorythm = algorythm;
-            _mapper = mapper;
+            _calculatedRoutesRepository = calculatedRoutesRepository;
+
             _isValidInputData = false;
             _isValidOutputData = false;
         }
 
-        public List<City> Cities { get; private set; }
-        public Guid Token { get; private set; }
-
-        public override void SetData(Guid token, string jsonData)
+        public override Guid GenerateToken()
         {
-            if (!_isValidInputData)
-                return;
-
-            Cities = JsonConvert.DeserializeObject<List<City>>(jsonData);
-            Token = token;
+            _token = Guid.NewGuid();
+            return _token;
         }
 
-        public override bool IsValidInputData(string jsonData)
+        public override void SetInputData(string data)
         {
-            return _isValidInputData = IsValidJsonData(jsonData);
+            _inputData = data;
         }
 
-        public override bool IsValidOutputData(string jsonData)
+        public override void SetOutputData(Guid token)
         {
-            return _isValidOutputData = IsValidJsonData(jsonData);
+            _outputData = _calculatedRoutesRepository.GetCalculatedRoute(token);
+        }
+
+        public override bool IsValidInputData()
+        {
+            return _isValidInputData = IsValidJsonData(_inputData);
+        }
+
+        public override bool IsValidOutputData()
+        {
+            if (_outputData == null)
+                return _isValidOutputData = false;
+
+            return _isValidOutputData = IsValidJsonData(_outputData.Data);
         }
 
         public override async Task Calculate()
@@ -55,8 +69,8 @@ namespace AppCore.Calculators
             if (_isValidInputData)
                 Task.Run(() =>
                 {
-                    var mappedData = _mapper.Map<List<TSPEngine.City>>(Cities);
-                    _algorythm.CalculateRoute(Token, mappedData);
+                    var cities = JsonConvert.DeserializeObject<List<Place>>(_inputData);
+                    _algorythm.CalculateRoute(_token, cities);
                 });
             else
                 throw new Exception("Invalid data when trying calculate route.");
@@ -65,7 +79,7 @@ namespace AppCore.Calculators
         public override string GetResponseData()
         {
             if (_isValidOutputData)
-                return JsonConvert.SerializeObject(Cities);
+                return JsonConvert.SerializeObject(_outputData.Data);
             throw new Exception("Invalid output data when trying get response.");
         }
 
@@ -95,11 +109,11 @@ namespace AppCore.Calculators
             if (!isValid)
                 return false;
 
-            Cities = JsonConvert.DeserializeObject<List<City>>(jsonData);
-            if (Cities == null || !Cities.Any())
+            var cities = JsonConvert.DeserializeObject<List<Place>>(jsonData);
+            if (cities == null || !cities.Any())
                 return false;
 
-            var isDuplicatedCityEntry = Cities.Any(city => Cities.Count(c => c.CityName == city.CityName) != 1);
+            var isDuplicatedCityEntry = cities.Any(city => cities.Count(c => c.CityName == city.CityName) != 1);
 
             return !isDuplicatedCityEntry;
         }

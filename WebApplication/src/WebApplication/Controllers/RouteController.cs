@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using AppCore;
 using AppCore.Interfaces;
+using AppCore.Managers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication.Controllers
@@ -8,19 +10,22 @@ namespace WebApplication.Controllers
     [Route("api/[controller]")]
     public class RouteController : Controller
     {
-        private readonly IRouteManager _routeManager;
+        private readonly IJsonRouteCalculatorCreator _jsonRouteCalculatorCreator;
 
-        public RouteController(IRouteManager routeManager)
+        public RouteController(IJsonRouteCalculatorCreator jsonRouteCalculatorCreator)
         {
-            _routeManager = routeManager;
+            _jsonRouteCalculatorCreator = jsonRouteCalculatorCreator;
         }
 
         [HttpGet("{routeGuid}")]
-        public IActionResult GetRoute(Guid routeGuid)
+        public IActionResult GetRoute(Guid routeGuid, [FromQuery] string version)
         {
             try
             {
-                var result = _routeManager.GetRouteData(routeGuid);
+                var routeCalculator = _jsonRouteCalculatorCreator.GetRouteCalculator(version);
+                var routeManager = new RouteManager<string>(routeCalculator);
+                var result = routeManager.GetRouteData(routeGuid);
+
                 Response.ContentType = "application/json";
                 return Ok(result);
             }
@@ -38,10 +43,13 @@ namespace WebApplication.Controllers
                 if (string.IsNullOrEmpty(version))
                     throw new ArgumentException("Missing request version.");
 
+                var routeCalculator = _jsonRouteCalculatorCreator.GetRouteCalculator(version);
+                var routeManager = new RouteManager<string>(routeCalculator);
+
                 var reader = new StreamReader(Request.Body);
                 var jsonString = reader.ReadToEnd();
 
-                return Ok(_routeManager.CalculateRoute(version, jsonString));
+                return Ok(routeManager.CalculateRoute(jsonString));
             }
             catch (Exception e)
             {

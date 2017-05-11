@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 
 namespace AppCore.Interfaces
 {
-    public abstract class RouteCalculator
+    public abstract class RouteCalculator<T>
     {
-        public abstract void SetData(Guid token, string jsonData);
-        public abstract bool IsValidInputData(string jsonData);
-        public abstract bool IsValidOutputData(string jsonData);
+        public abstract Guid GenerateToken();
+        public abstract void SetInputData(T data);
+        public abstract void SetOutputData(Guid token);
+        public abstract bool IsValidInputData();
+        public abstract bool IsValidOutputData();
         public abstract Task Calculate();
-        public abstract string GetResponseData();
+        public abstract T GetResponseData();
     }
 }

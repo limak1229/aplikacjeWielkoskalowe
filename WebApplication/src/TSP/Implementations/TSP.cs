@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Algorythms.Interfaces;
 using DataAccessLayer.Interfaces;
 using Newtonsoft.Json;
 using TSPEngine;
 
-namespace TSP
+namespace Algorythms.Implementations
 {
-    public class Tsp
+    public class Tsp : IAlgorythm<List<Place>>
     {
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
@@ -16,7 +17,7 @@ namespace TSP
             _calculatedRoutesRepository = calculatedRoutesRepository;
         }
 
-        public void CalculateRoute(Guid token, List<City> cities)
+        public void CalculateRoute(Guid token, List<Place> cities)
         {
             var stops = Enumerable.Range(0, cities.Count)
                 .Select(i => new Stop(cities[i]))

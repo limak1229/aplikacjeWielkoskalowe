@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7D379239-7B29-4D04-BCEC-9602BF1664AB}"
 EndProject
@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppCore.Tests", "src\AppCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer.Tests", "src\DataAccessLayer.Tests\DataAccessLayer.Tests.csproj", "{289B2756-C986-4E9E-881B-ABEE731D4934}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSP", "src\TSP\TSP.csproj", "{64D7699B-8176-4536-AA66-CFB193CAF739}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorythms", "src\TSP\Algorythms.csproj", "{64D7699B-8176-4536-AA66-CFB193CAF739}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSPEngine", "src\TSPEngine\TSPEngine.csproj", "{70900FCA-2076-4CBC-B209-3CA2B8BC1814}"
 EndProject
