@@ -16,7 +16,7 @@ namespace AppCore.RouteCalculators
 {
     public class BaseRouteCalculator : RouteCalculator<string>
     {
-        private readonly IAlgorythm<List<TSPEngine.City>> _algorythm;
+        private readonly IAlgorythm<List<City>> _algorythm;
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 
         private bool _isValidInputData;
@@ -26,7 +26,7 @@ namespace AppCore.RouteCalculators
         private CalculatedRoutes _outputData;
         private Guid _token;
 
-        public BaseRouteCalculator(IAlgorythm<List<TSPEngine.City>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository)
+        public BaseRouteCalculator(IAlgorythm<List<City>> algorythm, ICalculatedRoutesRepository calculatedRoutesRepository)
         {
             _algorythm = algorythm;
             _calculatedRoutesRepository = calculatedRoutesRepository;
