@@ -79,7 +79,7 @@ namespace AppCore.RouteCalculators
         public override string GetResponseData()
         {
             if (_isValidOutputData)
-                return JsonConvert.SerializeObject(_outputData.Data);
+                return _outputData.Data;
             throw new Exception("Invalid output data when trying get response.");
         }
 

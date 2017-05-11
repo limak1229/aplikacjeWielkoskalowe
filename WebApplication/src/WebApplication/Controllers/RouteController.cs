@@ -22,6 +22,9 @@ namespace WebApplication.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(version))
+                    throw new ArgumentException("Missing request version.");
+
                 var routeCalculator = _jsonRouteCalculatorCreator.GetRouteCalculator(version);
                 var routeManager = new RouteManager<string>(routeCalculator);
                 var result = routeManager.GetRouteData(routeGuid);
