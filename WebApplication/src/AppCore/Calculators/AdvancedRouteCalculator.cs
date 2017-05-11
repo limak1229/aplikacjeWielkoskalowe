@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using Algorythms.Interfaces;
 using AutoMapper;
-using TSP;
+using DataAccessLayer.Interfaces;
+using TSPEngine;
 
 namespace AppCore.Calculators
 {
     public class AdvancedRouteCalculator : BaseRouteCalculator
     {
-        public AdvancedRouteCalculator(Tsp algorythm, IMapper mapper) : base(algorythm, mapper)
+        public AdvancedRouteCalculator(IAlgorythm<List<City>> algorythm, IMapper mapper, ICalculatedRoutesRepository calculatedRoutesRepository) : base(algorythm, mapper, calculatedRoutesRepository)
         {
+
         }
 
-        public override bool IsValidInputData(string inputData)
+        public override bool IsValidInputData()
         {
             Console.WriteLine("Do sth else");
-            return base.IsValidInputData(inputData);
+            return base.IsValidInputData();
         }
     }
 }

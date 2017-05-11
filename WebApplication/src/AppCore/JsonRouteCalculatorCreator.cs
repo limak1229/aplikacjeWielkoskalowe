@@ -4,19 +4,19 @@ using AppCore.Interfaces;
 
 namespace AppCore
 {
-    public class RouteCalculatorCreator: IRouteCalculatorCreator
+    public class JsonRouteCalculatorCreator: IJsonRouteCalculatorCreator
     {
         private readonly AdvancedRouteCalculator _advancedRouteCalculator;
         private readonly BaseRouteCalculator _baseRouteCalculator;
 
-        public RouteCalculatorCreator(BaseRouteCalculator baseRouteCalculator,
+        public JsonRouteCalculatorCreator(BaseRouteCalculator baseRouteCalculator,
             AdvancedRouteCalculator advancedRouteCalculator)
         {
             _baseRouteCalculator = baseRouteCalculator;
             _advancedRouteCalculator = advancedRouteCalculator;
         }
 
-        public RouteCalculator GetRouteCalculator(string version)
+        public RouteCalculator<string> GetRouteCalculator(string version)
         {
             switch (version)
             {

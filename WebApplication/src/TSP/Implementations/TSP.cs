@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Algorythms.Interfaces;
 using DataAccessLayer.Interfaces;
 using Newtonsoft.Json;
 using TSPEngine;
 
-namespace TSP
+namespace Algorythms.Implementations
 {
-    public class Tsp
+    public class Tsp : IAlgorythm<List<City>>
     {
         private readonly ICalculatedRoutesRepository _calculatedRoutesRepository;
 

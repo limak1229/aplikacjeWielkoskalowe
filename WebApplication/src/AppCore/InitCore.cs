@@ -1,4 +1,7 @@
-﻿using AppCore.Calculators;
+﻿using System.Collections.Generic;
+using Algorythms.Implementations;
+using Algorythms.Interfaces;
+using AppCore.Calculators;
 using AppCore.Interfaces;
 using AppCore.Managers;
 using AppCore.Models;
@@ -14,11 +17,10 @@ namespace AppCore
         {
             services.RegisterDataAccessLayerServices();
 
-            services.AddScoped<IRouteManager, RouteManager>();
             services.AddScoped<BaseRouteCalculator>();
             services.AddScoped<AdvancedRouteCalculator>();
-            services.AddScoped<IRouteCalculatorCreator, RouteCalculatorCreator>();
-            services.AddScoped<TSP.Tsp>();
+            services.AddScoped<IJsonRouteCalculatorCreator, JsonRouteCalculatorCreator>();
+            services.AddScoped<IAlgorythm<List<TSPEngine.City>>, Tsp>();
 
             ConfigureMapper(services);
         }
