@@ -9,3 +9,7 @@ Budowanie oraz uruchomienie projektu, cmd w katalogu: aplikacjeWielkoskalowe\Web
     dotnet build 
     dotnet run
 Po poprawnym uruchomieniu wyświetli nam się informacja na jakim porcie zostało postawione API.
+
+
+Graf zależności
+![alt text](https://raw.githubusercontent.com/limak1229/aplikacjeWielkoskalowe/master/Dependencies%20Graph.png)
