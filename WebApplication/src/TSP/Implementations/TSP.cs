@@ -4,6 +4,7 @@ using System.Linq;
 using Algorythms.Interfaces;
 using DataAccessLayer.Interfaces;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using TSPEngine;
 
 namespace Algorythms.Implementations
@@ -45,8 +46,13 @@ namespace Algorythms.Implementations
 
         private void AddNewCalculatedRoute(Guid token, Tour newTour)
         {
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
             _calculatedRoutesRepository.AddNewCalculatedRoute("1.0", token,
-                JsonConvert.SerializeObject(newTour.Path()));
+                JsonConvert.SerializeObject(newTour.Path(), settings));
         }
     }
 }
