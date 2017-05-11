@@ -4,12 +4,12 @@ using AppCore.Interfaces;
 
 namespace AppCore
 {
-    public class RouteCalculatorFactory
+    public class RouteCalculatorCreator: IRouteCalculatorCreator
     {
         private readonly AdvancedRouteCalculator _advancedRouteCalculator;
         private readonly BaseRouteCalculator _baseRouteCalculator;
 
-        public RouteCalculatorFactory(BaseRouteCalculator baseRouteCalculator,
+        public RouteCalculatorCreator(BaseRouteCalculator baseRouteCalculator,
             AdvancedRouteCalculator advancedRouteCalculator)
         {
             _baseRouteCalculator = baseRouteCalculator;
