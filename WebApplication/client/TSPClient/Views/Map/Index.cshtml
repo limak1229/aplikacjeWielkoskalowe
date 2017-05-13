@@ -1,0 +1,108 @@
+﻿@model List<TSPClientRepository.Models.City>  
+    @using System.Data.Entity
+<div id="center-text">
+        Zaznacz punkty do których chcesz dojechać.
+    </div>
+     <div id="floating-panel">
+         <div id="StandardButtons">
+             <input onclick="clearMarkers();" type=button class="btn btn-primary" value="Ukryj znaczniki">
+             <input onclick="showMarkers();" type=button class="btn btn-primary" value="Pokaż wszystkie znaczniki">
+             <input onclick="deleteMarkers();" type=button class="btn btn-warning" value="Usuń znaczniki">
+             <input onclick="addPointersToList();" type=button class="btn btn-success" id="AddToTrack" value="Dodaj wszystkie punkty do trasy">
+             <button type="button" class="btn btn-group-lg" data-toggle="modal" data-target="#myModal">Podaj Token </button>
+        </div>
+         <div id="PathButtons" style="display:none">
+             <input onclick="backToMap();" type=button class="btn btn-success" value="Wróć do zaznaczania">
+             @Html.ActionLink("Narysuj ścieżkę", "ShowRoute", "Map", null, new { @class = "btn btn-warning", id = "DrawPath" })
+         </div>
+    </div>
+    <div id="map"></div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        @using (Html.BeginForm("GetResultByToken", "Map", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Podaj token</p>
+                @Html.TextBox("token")
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default">Dalej</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<script>
+    var map;
+    var markers = [];
+    function initMap() {
+        var latlng = { lat: 51.770, lng: 19.459 };
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: latlng,
+            mapTypeId: 'terrain'
+        });
+        map.addListener('click', function (event) {
+            addMarker(event.latLng);
+        });
+        addMarker(latlng);
+    }
+    function addMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+
+    }
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+    function clearMarkers() {
+        setMapOnAll(null);
+         @foreach (var item in @Model) {
+             @Model.Remove(item);
+         }
+    }
+    function backToMap() {
+        document.getElementById("StandardButtons").style.display = "block";
+        document.getElementById("PathButtons").style.display = "none";
+    }
+    function addPointersToList() {
+        var cities = [];
+        for (var i = 0; i < markers.length; i++) {
+            cities.push(i.toString());
+            cities.push(markers[i].getPosition().lat());
+            cities.push(markers[i].getPosition().lng());
+        }
+
+        document.getElementById("StandardButtons").style.display = "none";
+        document.getElementById("PathButtons").style.display = "block";
+
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "../Map/Index",
+            success: alert("Punkty zostały dodane. Kliknij 'Rysuj' aby zobaczyć trasę"),
+            data: { citiesArray: cities }
+        });
+
+    }
+     function showMarkers() {
+         setMapOnAll(map);
+     }
+     function deleteMarkers() {
+         clearMarkers();
+         markers = [];
+     }
+
+</script>

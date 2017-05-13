@@ -1,0 +1,35 @@
+﻿@model List<TSPClientRepository.Models.City>
+<h2>TOKEN: @ViewBag.Token</h2>
+<div id="map"></div>
+    &nbsp;
+<div id="warnings-panel"></div>
+<script>
+    var map;
+    function initMap() {
+        var destinations = [];
+        var markerArray = [];
+        var directionsService = new google.maps.DirectionsService;
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: @Model.First().latitude, lng: @Model.First().longitude}
+        });
+
+        @foreach(var item in Model)
+        {
+            @:destinations.push(new google.maps.LatLng(@item.latitude, @item.longitude));
+        }
+        var polylineoptions = { path: destinations };
+        var polyline = new google.maps.Polyline(polylineoptions);
+        polyline.setMap(map);
+        for (var i= 0; i < destinations.length; i++)
+        {
+            var latlng = destinations[i];
+            var maker = new google.maps.Marker({
+                position: latlng,
+                map: map
+            });
+        }
+
+    }
+
+</script>
